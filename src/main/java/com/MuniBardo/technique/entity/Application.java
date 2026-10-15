@@ -43,7 +43,10 @@ public class Application {
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ApplicationDocument> documents = new ArrayList<>();
 
-    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
+   // @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
+   // private List<StatusHistory> statusHistories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StatusHistory> statusHistories = new ArrayList<>();
 
     @Column(name = "created_at", updatable = false)

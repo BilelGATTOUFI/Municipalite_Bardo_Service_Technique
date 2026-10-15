@@ -40,6 +40,7 @@
                     <td>
                         <a th:href="@{/applications/{id}(id=${app.id})}" class="btn btn-sm btn-info text-white">تفاصيل الملف</a>
                     </td>
+
                 </tr>
                 <tr th:if="${#lists.isEmpty(applications)}">
                     <td colspan="7" class="text-center text-muted py-4">لا توجد مطالب مسجلة حالياً في النظام.</td>

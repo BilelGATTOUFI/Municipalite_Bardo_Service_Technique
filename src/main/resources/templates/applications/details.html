@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تفاصيل المطلب - بلدية باردو</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+</head>
+<body class="bg-light">
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📄 تفاصيل المطلب رقم: <span th:text="${application.fileNumber}">غير متوفر</span></h2>
+        <a href="/applications" class="btn btn-secondary">العودة لقائمة المطالب</a>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">معلومات المطلب الأساسية</h5>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <strong>اسم صاحب المطلب:</strong>
+                    <span th:text="${application.citizen != null ? application.citizen.fullName : 'غير متوفر'}"></span>
+                </div>
+                <div class="col-md-6">
+                    <strong>رقم ب.ت.و / الجواز:</strong>
+                    <span th:text="${application.citizen != null ? application.citizen.cinOrPassport : 'غير متوفر'}"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <strong>رقم الهاتف:</strong>
+                    <span th:text="${application.citizen != null ? application.citizen.phoneNumber : 'غير متوفر'}"></span>
+                </div>
+                <div class="col-md-6">
+                    <strong>نوع المطلب:</strong>
+                    <span th:text="${application.type != null ? application.type.name : 'غير متوفر'}"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <strong>الحالة الحالية:</strong>
+                    <span class="badge bg-warning text-dark" th:text="${application.currentStatus}"></span>
+                </div>
+                <div class="col-md-6">
+                    <strong>العنوان / الموقع:</strong>
+                    <span th:text="${application.locationAddress}"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <strong>تاريخ الإيداع:</strong>
+                    <span th:text="${application.createdAt != null ? #temporals.format(application.createdAt, 'yyyy-MM-dd HH:mm') : 'غير متوفر'}"></span>
+                </div>
+                <div class="col-md-6" th:if="${application.updatedAt != null}">
+                    <strong>آخر تحديث:</strong>
+                    <span th:text="${#temporals.format(application.updatedAt, 'yyyy-MM-dd HH:mm')}"></span>
+                </div>
+            </div>
+            <div class="row mb-3" th:if="${application.createdBy != null}">
+                <div class="col-md-12">
+                    <strong>تم التسجيل بواسطة الحساب:</strong>
+                    <span th:text="${application.createdBy.username}" class="text-muted"></span>
+                </div>
+            </div>
+            <div class="row" th:if="${application.notes != null}">
+                <div class="col-md-12">
+                    <strong>ملاحظات:</strong>
+                    <p class="border p-2 rounded bg-white" th:text="${application.notes}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- زر الانتقال لصفحة التعديل -->
+    <div class="text-end">
+        <a th:href="@{/applications/edit/{id}(id=${application.id})}" class="btn btn-warning px-4">✏️ تعديل المطلب وتغيير الحالة</a>
+    </div>
+</div>
+</body>
+</html>
