@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل مطلب جديد - بلدية باردو</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+</head>
+<body class="bg-light">
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h4 class="mb-0 text-center">📋 تسجيل مطلب بلدي جديد</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form th:action="@{/applications/save}" method="post" enctype="multipart/form-data">
+
+                        <!-- بيانات المواطن -->
+                        <h5 class="text-primary border-bottom pb-2 mb-3">1. بيانات صاحب المطلب</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">رقم ب.ت.و / الجواز <span class="text-danger">*</span></label>
+                                <input type="text" name="cinOrPassport" class="form-control" required placeholder="مثال: 08888888">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">الاسم واللقب <span class="text-danger">*</span></label>
+                                <input type="text" name="fullName" class="form-control" required placeholder="مثال: أحمد بن صالح">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">رقم الهاتف</label>
+                                <input type="tel" name="phone" class="form-control" placeholder="216 20 000 000">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">البريد الإلكتروني</label>
+                                <input type="email" name="email" class="form-control" placeholder="citizen@example.tn">
+                            </div>
+                        </div>
+
+                        <!-- تفاصيل المطلب -->
+                        <h5 class="text-primary border-bottom pb-2 mb-3 mt-4">2. تفاصيل المطلب</h5>
+                        <div class="mb-3">
+                            <label class="form-label">نوع المطلب <span class="text-danger">*</span></label>
+                            <select name="type.id" class="form-select" required>
+                                <option value="">-- اختر نوع المطلب --</option>
+                                <option th:each="t : ${types}" th:value="${t.id}" th:text="${t.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">عنوان العقار / موقع الإشغال <span class="text-danger">*</span></label>
+                            <textarea name="locationAddress" class="form-control" rows="2" required placeholder="عنوان العقار أو المعاينة بالتفصيل..."></textarea>
+                        </div>
+
+                        <!-- الوثائق والمرفقات -->
+                        <h5 class="text-primary border-bottom pb-2 mb-3 mt-4">3. المرفقات والوثائق</h5>
+                        <div class="mb-4">
+                            <label class="form-label">تحميل الوثائق المرفقة (PDF, صور)</label>
+                            <input type="file" name="files" class="form-control" multiple>
+                            <div class="form-text">يمكنك اختيار أكثر من ملف في نفس الوقت.</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between pt-3">
+                            <a href="/applications" class="btn btn-outline-secondary">إلغاء وعودة</a>
+                            <button type="submit" class="btn btn-primary px-4">حفظ وتسجيل المطلب</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
